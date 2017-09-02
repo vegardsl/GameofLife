@@ -2,15 +2,15 @@ package com.stjerna.gameoflife;
 
 import java.util.ArrayList;
 
-class GameBoard {
+class NaiveGameBoard {
 
   ArrayList<Cell> cells;
 
   private int rows;
   private int columns;
-  private GameBoard gameBoard;
+  private NaiveGameBoard naiveGameBoard;
 
-  GameBoard(int rows, int columns, float probabilityOfLife) {
+  NaiveGameBoard(int rows, int columns, float probabilityOfLife) {
 
     cells = new ArrayList<>();
     this.rows = rows;
@@ -52,7 +52,7 @@ class GameBoard {
         Cell checkedCell = new Cell(x, y);
         if (cells.contains(checkedCell)) continue;
         int neighbourCount = getNeighbourCount(new Cell(x, y), cells);
-        if (2 < neighbourCount) nextGenCells.add(checkedCell);
+        if (neighbourCount == 3) nextGenCells.add(checkedCell);
       }
     }
     return nextGenCells;

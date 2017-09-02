@@ -19,14 +19,15 @@ public class GameActivity extends AppCompatActivity {
 
     activity = this;
 
-    gameBoardView = (GameBoardView) findViewById(R.id.game_board);
+    gameBoardView = findViewById(R.id.game_board);
     gameBoardView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @Override
       public void onGlobalLayout() {
         // make sure it is not called anymore
         gameBoardView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
-        gameController = new GameController(activity, gameBoardView, new GameBoard(20, 20, 0.95f));
+        gameController = new GameController(activity, gameBoardView, new GameOfLifeImpl(50,40));
+        gameController.seed(0.3f);
         gameController.startGame();
       }
     });

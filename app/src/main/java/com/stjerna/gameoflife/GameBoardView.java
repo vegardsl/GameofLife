@@ -11,12 +11,10 @@ import android.view.View;
 public class GameBoardView extends View {
 
   private Paint cellPaint;
-  GameBoard gameBoard;
-  private int rows;
-  private int columns;
 
   private float cellHeight;
   private float cellWidth;
+  private NewCell[][] grid;
 
   public GameBoardView(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
@@ -29,11 +27,11 @@ public class GameBoardView extends View {
   public void onDraw(Canvas canvas) {
     super.onDraw(canvas);
 
-    if (gameBoard == null) return;
+    if (grid == null) return;
 
-    for (int x = 0; x < rows; x++) {
-      for (int y = 0; y < this.columns; y++) {
-        if (gameBoard.getCells().contains(new Cell(x, y))) {
+    for (int x = 0; x < grid.length; x++) {
+      for (int y = 0; y < grid[0].length; y++) {
+        if (grid[x][y].getStatus() == CellStatus.ALIVE) {
           canvas.drawRect(
               cellWidth * x, cellHeight * y,
               cellWidth * (x + 1), cellHeight * (y + 1), cellPaint);
@@ -42,17 +40,14 @@ public class GameBoardView extends View {
     }
   }
 
-  public void update(GameBoard gameBoard) {
-    this.gameBoard = gameBoard;
+  public void update(NewCell[][] grid) {
+    this.grid = grid;
     invalidate();
   }
 
-  public void setGameBoard(GameBoard gameBoard) {
-    this.gameBoard = gameBoard;
-    rows = gameBoard.getRows();
-    columns = gameBoard.getColumns();
-
-    cellHeight = getHeight() / rows;
-    cellWidth = getWidth() / columns;
+  public void setGrid(NewCell[][] grid) {
+    this.grid = grid;
+    cellHeight = getHeight() / grid[0].length;
+    cellWidth = getWidth() / grid.length;
   }
 }
