@@ -8,58 +8,51 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import java.util.ArrayList;
-
 public class GameBoardView extends View {
 
-		private Paint cellPaint;
-		GameBoard gameBoard;
-		private int rows;
-		private int columns;
+  private Paint cellPaint;
+  GameBoard gameBoard;
+  private int rows;
+  private int columns;
 
-		private float cellHeight;
-		private float cellWidth;
+  private float cellHeight;
+  private float cellWidth;
 
-		public GameBoardView(Context context, @Nullable AttributeSet attrs) {
-				super(context, attrs);
+  public GameBoardView(Context context, @Nullable AttributeSet attrs) {
+    super(context, attrs);
 
-				cellPaint = new Paint();
-				cellPaint.setColor(Color.BLACK);
-		}
+    cellPaint = new Paint();
+    cellPaint.setColor(Color.BLACK);
+  }
 
-		@Override
-		public void onDraw(Canvas canvas) {
-				super.onDraw(canvas);
+  @Override
+  public void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
 
-				if (gameBoard == null) return;
+    if (gameBoard == null) return;
 
-				for (int x = 0; x < rows; x++) {
-						for (int y = 0; y < this.columns; y++) {
-								if (gameBoard.getCells().contains(new Cell(x, y))) {
-										canvas.drawRect(
-														cellWidth * x, cellHeight * y,
-														cellWidth * (x + 1), cellHeight * (y + 1), cellPaint);
-								}
-						}
-				}
+    for (int x = 0; x < rows; x++) {
+      for (int y = 0; y < this.columns; y++) {
+        if (gameBoard.getCells().contains(new Cell(x, y))) {
+          canvas.drawRect(
+              cellWidth * x, cellHeight * y,
+              cellWidth * (x + 1), cellHeight * (y + 1), cellPaint);
+        }
+      }
+    }
+  }
 
-				if (gameBoard == null) return;
+  public void update(GameBoard gameBoard) {
+    this.gameBoard = gameBoard;
+    invalidate();
+  }
 
-//				canvas.drawRect(0, 0, getWidth() / 2, getHeight() / 2, cellPaint);
-//				canvas.drawRect(getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), cellPaint);
-		}
+  public void setGameBoard(GameBoard gameBoard) {
+    this.gameBoard = gameBoard;
+    rows = gameBoard.getRows();
+    columns = gameBoard.getColumns();
 
-		public void update(GameBoard gameBoard) {
-				this.gameBoard = gameBoard;
-				invalidate();
-		}
-
-		public void setGameBoard(GameBoard gameBoard) {
-				this.gameBoard = gameBoard;
-				rows = gameBoard.getRows();
-				columns = gameBoard.getColumns();
-
-				cellHeight = getHeight() / rows;
-				cellWidth = getWidth() / columns;
-		}
+    cellHeight = getHeight() / rows;
+    cellWidth = getWidth() / columns;
+  }
 }
