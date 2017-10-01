@@ -4,7 +4,7 @@ public class GameOfLifeImpl implements GameOfLife {
 
   private NewCell[][] grid;
 
-  public GameOfLifeImpl(int columns, int rows) {
+  public GameOfLifeImpl(int rows, int columns) {
     grid = new NewCell[rows][columns];
     for (int x = 0; x < rows; x++) {
       for (int y = 0; y < columns; y++) {

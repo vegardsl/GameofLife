@@ -8,7 +8,7 @@ import java.util.TimerTask;
 class GameController {
 
   private static final int DELAY = 0;
-  private static final int PERIOD_MILLIS = 333;
+  private static final int PERIOD_MILLIS = 100;
   private Timer timer = new Timer();
 
   private boolean isStarted = false;
@@ -49,5 +49,19 @@ class GameController {
         });
       }
     }, DELAY, PERIOD_MILLIS);
+  }
+
+  public void pauseGame() {
+    isStarted = false;
+    timer.cancel();
+  }
+
+  public void resumeGame() {
+    timer = new Timer();
+    startGame();
+  }
+
+  public boolean isRunning() {
+    return isStarted;
   }
 }

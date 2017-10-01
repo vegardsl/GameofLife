@@ -14,6 +14,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/game_controls_layout"/>
+
+    <LinearLayout
+        android:id="@+id/game_controls_layout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Button"
+            android:onClick="onClickToggleGame"/>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

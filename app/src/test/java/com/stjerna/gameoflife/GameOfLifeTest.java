@@ -9,7 +9,7 @@ public class GameOfLifeTest {
   private GameOfLife gameOfLife;
 
   private void initGame(int columns, int rows) {
-    gameOfLife = new GameOfLifeImpl(columns, rows);
+    gameOfLife = new GameOfLifeImpl(rows, columns);
   }
 
   @Test

@@ -3,6 +3,8 @@ package com.stjerna.gameoflife;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 
 public class GameActivity extends AppCompatActivity {
@@ -24,12 +26,38 @@ public class GameActivity extends AppCompatActivity {
       @Override
       public void onGlobalLayout() {
         // make sure it is not called anymore
-        gameBoardView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-
-        gameController = new GameController(activity, gameBoardView, new GameOfLifeImpl(50,40));
-        gameController.seed(0.3f);
+        gameBoardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        BoardSize boardSize = determineBoardSize(gameBoardView);
+        gameController = new GameController(activity, gameBoardView, new GameOfLifeImpl(boardSize.width, boardSize.height));
+        gameController.seed(0.4f);
         gameController.startGame();
       }
     });
+  }
+
+  private BoardSize determineBoardSize(GameBoardView gameBoardView) {
+    Log.d(GameActivity.class.getSimpleName(), "H: " + gameBoardView.getHeight());
+    Log.d(GameActivity.class.getSimpleName(), "W: " + gameBoardView.getWidth());
+    return new BoardSize(60).determine(gameBoardView.getHeight(), gameBoardView.getWidth());
+  }
+
+  public void onClickToggleGame(View view) {
+    if (gameController.isRunning()) gameController.pauseGame();
+    else gameController.resumeGame();
+  }
+
+  private class BoardSize {
+    int height;
+    int width;
+
+    BoardSize(int columns) {
+      this.width = columns;
+    }
+
+    BoardSize determine(double height, double width) {
+      double ratio = height / width;
+      this.height = (int) (ratio * this.width);
+      return this;
+    }
   }
 }
