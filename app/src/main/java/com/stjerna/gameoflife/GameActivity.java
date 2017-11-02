@@ -25,7 +25,6 @@ public class GameActivity extends AppCompatActivity {
     gameBoardView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @Override
       public void onGlobalLayout() {
-        // make sure it is not called anymore
         gameBoardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
         BoardSize boardSize = determineBoardSize(gameBoardView);
         gameController = new GameController(activity, gameBoardView, new GameOfLifeImpl(boardSize.width, boardSize.height));
@@ -38,7 +37,7 @@ public class GameActivity extends AppCompatActivity {
   private BoardSize determineBoardSize(GameBoardView gameBoardView) {
     Log.d(GameActivity.class.getSimpleName(), "H: " + gameBoardView.getHeight());
     Log.d(GameActivity.class.getSimpleName(), "W: " + gameBoardView.getWidth());
-    return new BoardSize(60).determine(gameBoardView.getHeight(), gameBoardView.getWidth());
+    return new BoardSize(180).determine(gameBoardView.getHeight(), gameBoardView.getWidth());
   }
 
   public void onClickToggleGame(View view) {
