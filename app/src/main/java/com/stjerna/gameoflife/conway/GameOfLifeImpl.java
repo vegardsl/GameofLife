@@ -17,13 +17,13 @@ public class GameOfLifeImpl extends GameOfLife {
   @Override
   public void nextGeneration() {
     for (ConwayCell[] column : grid) {
-      for (ConwayCell aColumn : column) {
-        aColumn.determineFutureStatus();
+      for (ConwayCell cell : column) {
+        cell.determineFutureStatus();
       }
     }
     for (ConwayCell[] column : grid) {
-      for (ConwayCell aColumn : column) {
-        aColumn.transitionToFutureStatus();
+      for (ConwayCell cell : column) {
+        cell.transitionToFutureStatus();
       }
     }
   }
