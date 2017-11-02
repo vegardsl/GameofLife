@@ -3,9 +3,7 @@ package com.stjerna.gameoflife.conway;
 import com.stjerna.gameoflife.CellStatus;
 import com.stjerna.gameoflife.GameOfLife;
 
-public class GameOfLifeImpl implements GameOfLife {
-
-  private ConwayCell[][] grid;
+public class GameOfLifeImpl extends GameOfLife {
 
   public GameOfLifeImpl(int rows, int columns) {
     grid = new ConwayCell[rows][columns];
@@ -19,13 +17,13 @@ public class GameOfLifeImpl implements GameOfLife {
   @Override
   public void nextGeneration() {
     for (ConwayCell[] column : grid) {
-      for (int y = 0; y < column.length; y++) {
-        column[y].determineFutureStatus();
+      for (ConwayCell aColumn : column) {
+        aColumn.determineFutureStatus();
       }
     }
     for (ConwayCell[] column : grid) {
-      for (int y = 0; y < column.length; y++) {
-        column[y].transitionToFutureStatus();
+      for (ConwayCell aColumn : column) {
+        aColumn.transitionToFutureStatus();
       }
     }
   }
@@ -37,11 +35,13 @@ public class GameOfLifeImpl implements GameOfLife {
 
   @Override
   public void activateCell(int x, int y) {
+    if (isOutOfBounds(x, y)) return;
     grid[x][y].setStatus(CellStatus.ALIVE);
   }
 
   @Override
   public void killCell(int x, int y) {
+    if (isOutOfBounds(x, y)) return;
     grid[x][y].setStatus(CellStatus.DEAD);
   }
 }

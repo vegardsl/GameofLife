@@ -56,7 +56,7 @@ class GameController {
   private void startGameLoop() {
     timer.scheduleAtFixedRate(new TimerTask() {
       public void run() {
-        logStepDuration();
+        //logStepDuration();
         gameOfLife.nextGeneration();
         context.runOnUiThread(new Runnable() {
           @Override
@@ -71,7 +71,7 @@ class GameController {
 
   private void logStepDuration() {
     long t2 = System.currentTimeMillis();
-    //Log.d(GameController.class.getSimpleName(), "Step duration: " + (t2 - t1));
+    Log.d(GameController.class.getSimpleName(), "Step duration: " + (t2 - t1));
     t1 = t2;
   }
 

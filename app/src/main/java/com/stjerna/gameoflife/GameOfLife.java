@@ -2,12 +2,19 @@ package com.stjerna.gameoflife;
 
 import com.stjerna.gameoflife.conway.ConwayCell;
 
-public interface GameOfLife {
-  void nextGeneration();
+public abstract class GameOfLife {
 
-  ConwayCell[][] getGrid();
+  protected ConwayCell[][] grid;
 
-  void activateCell(int x, int y);
+  public abstract void nextGeneration();
 
-  void killCell(int x, int y);
+  public abstract ConwayCell[][] getGrid();
+
+  public abstract void activateCell(int x, int y);
+
+  public abstract void killCell(int x, int y);
+
+  protected boolean isOutOfBounds(int x, int y) {
+    return x < 0 || y < 0 || grid.length <= x || grid[0].length <= y;
+  }
 }
