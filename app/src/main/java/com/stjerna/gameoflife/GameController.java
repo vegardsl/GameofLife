@@ -9,7 +9,7 @@ import java.util.TimerTask;
 class GameController {
 
   private static final int DELAY = 0;
-  private static final int PERIOD_MILLIS = 50;
+  private int periodMillis = 50;
   private Timer timer = new Timer();
 
   private boolean isStarted = false;
@@ -58,12 +58,12 @@ class GameController {
           }
         });
       }
-    }, DELAY, PERIOD_MILLIS);
+    }, DELAY, periodMillis);
   }
 
   private void logStepDuration() {
     long t2 = System.currentTimeMillis();
-    Log.d(GameController.class.getSimpleName(), "Step duration: " + (t2 - t1));
+    //Log.d(GameController.class.getSimpleName(), "Step duration: " + (t2 - t1));
     t1 = t2;
   }
 
@@ -79,5 +79,12 @@ class GameController {
 
   public boolean isRunning() {
     return isStarted;
+  }
+
+  void setSpeedPercent(int speedPercent) {
+    boolean wasRunning = isStarted;
+    if (wasRunning) pauseGame();
+    periodMillis = (1000 * (101 - speedPercent)) / 100; // 101 for non-positive period protection.
+    if (wasRunning) resumeGame();
   }
 }

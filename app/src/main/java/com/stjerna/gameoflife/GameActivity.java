@@ -6,13 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.stjerna.gameoflife.conway.GameOfLifeImpl;
 
 public class GameActivity extends AppCompatActivity {
 
+  public static final int INITIAL_SPEED_PERCENT = 50;
   GameBoardView gameBoardView;
   GameController gameController;
+  SeekBar speedSelector;
 
   Activity activity;
 
@@ -23,6 +27,26 @@ public class GameActivity extends AppCompatActivity {
 
     activity = this;
 
+    speedSelector = findViewById(R.id.speed_selector);
+    speedSelector.setProgress(INITIAL_SPEED_PERCENT);
+    speedSelector.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        Log.d(GameActivity.class.getSimpleName(), "Seekbar pos: " + i + " boolean: " + b);
+        gameController.setSpeedPercent(i);
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {
+        Log.d(GameActivity.class.getSimpleName(), "onStartTrackingTouch");
+      }
+
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {
+        Log.d(GameActivity.class.getSimpleName(), "onStopTrackingTouch");
+      }
+    });
+
     gameBoardView = findViewById(R.id.game_board);
     gameBoardView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @Override
@@ -30,6 +54,7 @@ public class GameActivity extends AppCompatActivity {
         gameBoardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
         BoardSize boardSize = determineBoardSize(gameBoardView);
         gameController = new GameController(activity, gameBoardView, new GameOfLifeImpl(boardSize.width, boardSize.height));
+        gameController.setSpeedPercent(INITIAL_SPEED_PERCENT);
         gameController.seed(0.4f);
         gameController.startGame();
       }
@@ -43,8 +68,13 @@ public class GameActivity extends AppCompatActivity {
   }
 
   public void onClickToggleGame(View view) {
-    if (gameController.isRunning()) gameController.pauseGame();
-    else gameController.resumeGame();
+    if (gameController.isRunning()) {
+      gameController.pauseGame();
+      if (view instanceof TextView) ((TextView) view).setText("PLAY");
+    } else {
+      gameController.resumeGame();
+      if (view instanceof TextView) ((TextView) view).setText("PAUSE");
+    }
   }
 
   private class BoardSize {
