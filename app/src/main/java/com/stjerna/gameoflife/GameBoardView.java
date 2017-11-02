@@ -8,13 +8,15 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.stjerna.gameoflife.conway.ConwayCell;
+
 public class GameBoardView extends View {
 
   private Paint cellPaint;
 
   private float cellHeight;
   private float cellWidth;
-  private NewCell[][] grid;
+  private ConwayCell[][] grid;
 
   public GameBoardView(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
@@ -40,12 +42,12 @@ public class GameBoardView extends View {
     }
   }
 
-  public void update(NewCell[][] grid) {
+  public void update(ConwayCell[][] grid) {
     this.grid = grid;
     invalidate();
   }
 
-  public void setGrid(NewCell[][] grid) {
+  public void setGrid(ConwayCell[][] grid) {
     this.grid = grid;
     cellHeight = getHeight() / grid[0].length;
     cellWidth = getWidth() / grid.length;

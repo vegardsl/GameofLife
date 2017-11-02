@@ -1,26 +1,29 @@
-package com.stjerna.gameoflife;
+package com.stjerna.gameoflife.conway;
+
+import com.stjerna.gameoflife.CellStatus;
+import com.stjerna.gameoflife.GameOfLife;
 
 public class GameOfLifeImpl implements GameOfLife {
 
-  private NewCell[][] grid;
+  private ConwayCell[][] grid;
 
   public GameOfLifeImpl(int rows, int columns) {
-    grid = new NewCell[rows][columns];
+    grid = new ConwayCell[rows][columns];
     for (int x = 0; x < rows; x++) {
       for (int y = 0; y < columns; y++) {
-        grid[x][y] = new NewCell(x, y, CellStatus.DEAD, grid);
+        grid[x][y] = new ConwayCell(x, y, CellStatus.DEAD, grid);
       }
     }
   }
 
   @Override
   public void nextGeneration() {
-    for (NewCell[] column : grid) {
+    for (ConwayCell[] column : grid) {
       for (int y = 0; y < column.length; y++) {
         column[y].determineFutureStatus();
       }
     }
-    for (NewCell[] column : grid) {
+    for (ConwayCell[] column : grid) {
       for (int y = 0; y < column.length; y++) {
         column[y].transitionToFutureStatus();
       }
@@ -28,7 +31,7 @@ public class GameOfLifeImpl implements GameOfLife {
   }
 
   @Override
-  public NewCell[][] getGrid() {
+  public ConwayCell[][] getGrid() {
     return grid;
   }
 

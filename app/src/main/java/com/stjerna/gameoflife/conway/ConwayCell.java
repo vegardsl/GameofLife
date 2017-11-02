@@ -1,13 +1,15 @@
-package com.stjerna.gameoflife;
+package com.stjerna.gameoflife.conway;
 
-public class NewCell {
+import com.stjerna.gameoflife.CellStatus;
+
+public class ConwayCell {
   int x;
   int y;
-  NewCell[][] grid;
+  ConwayCell[][] grid;
   CellStatus status;
   CellStatus futureStatus;
 
-  NewCell(int x, int y, CellStatus status, NewCell[][] grid) {
+  ConwayCell(int x, int y, CellStatus status, ConwayCell[][] grid) {
     this.x = x;
     this.y = y;
     this.grid = grid;
@@ -18,7 +20,7 @@ public class NewCell {
     this.status = status;
   }
 
-  CellStatus getStatus() {
+  public CellStatus getStatus() {
     return status;
   }
 

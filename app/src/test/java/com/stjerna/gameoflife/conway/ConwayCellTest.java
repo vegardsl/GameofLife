@@ -1,12 +1,15 @@
-package com.stjerna.gameoflife;
+package com.stjerna.gameoflife.conway;
+
+import com.stjerna.gameoflife.CellStatus;
+import com.stjerna.gameoflife.conway.ConwayCell;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class NewCellTest {
+public class ConwayCellTest {
 
-  NewCell[][] grid;
+  ConwayCell[][] grid;
 
   void createNoNeighbourGrid() {
     createGrid();
@@ -43,10 +46,10 @@ public class NewCellTest {
   }
 
   private void createGrid() {
-    grid = new NewCell[3][3];
+    grid = new ConwayCell[3][3];
     for (int x = 0; x < 3; x++) {
       for (int y = 0; y < 3; y++) {
-        grid[x][y] = new NewCell(x, y, CellStatus.DEAD, grid);
+        grid[x][y] = new ConwayCell(x, y, CellStatus.DEAD, grid);
       }
     }
   }

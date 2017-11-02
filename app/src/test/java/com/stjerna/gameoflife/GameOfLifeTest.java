@@ -1,5 +1,8 @@
 package com.stjerna.gameoflife;
 
+import com.stjerna.gameoflife.conway.GameOfLifeImpl;
+import com.stjerna.gameoflife.conway.ConwayCell;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -17,7 +20,7 @@ public class GameOfLifeTest {
     int columns = 100;
     int rows = 50;
     initGame(columns, rows);
-    NewCell[][] grid = gameOfLife.getGrid();
+    ConwayCell[][] grid = gameOfLife.getGrid();
     assertEquals(rows, grid.length);
     assertEquals(columns, grid[0].length);
   }
@@ -26,7 +29,7 @@ public class GameOfLifeTest {
   public void activateCell() {
     initGame(100, 50);
     gameOfLife.activateCell(1,1);
-    NewCell[][] grid = gameOfLife.getGrid();
+    ConwayCell[][] grid = gameOfLife.getGrid();
     assertEquals(CellStatus.ALIVE, grid[1][1].getStatus());
   }
 

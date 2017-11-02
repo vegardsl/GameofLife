@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import com.stjerna.gameoflife.conway.GameOfLifeImpl;
+
 public class GameActivity extends AppCompatActivity {
 
   GameBoardView gameBoardView;
