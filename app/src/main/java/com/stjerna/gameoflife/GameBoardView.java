@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.stjerna.gameoflife.conway.ConwayCell;
@@ -17,12 +18,31 @@ public class GameBoardView extends View {
   private float cellHeight;
   private float cellWidth;
   private ConwayCell[][] grid;
+  private OnTouchListener onTouchListener;
 
   public GameBoardView(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
 
     cellPaint = new Paint();
     cellPaint.setColor(Color.BLACK);
+  }
+
+  public void setOnTouchListener(OnTouchListener onTouchListener) {
+    this.onTouchListener = onTouchListener;
+  }
+
+  interface OnTouchListener {
+    void cellTouchedAtPosition(int x, int y);
+  }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent event) {
+    //if (event.getAction() != MotionEvent.ACTION_UP) return false;
+
+    float touchX = event.getX();
+    float touchY = event.getY();
+    onTouchListener.cellTouchedAtPosition((int) (touchX / cellWidth), (int) (touchY / cellHeight));
+    return true;
   }
 
   @Override

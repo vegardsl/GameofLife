@@ -21,11 +21,19 @@ class GameController {
 
   private long t1;
 
-  GameController(Activity context, GameBoardView gameBoardView, GameOfLife gameOfLife) {
+  GameController(Activity context, final GameBoardView gameBoardView, final GameOfLife gameOfLife) {
     this.gameBoardView = gameBoardView;
     this.gameOfLife = gameOfLife;
     this.context = context;
     gameBoardView.setGrid(gameOfLife.getGrid());
+    gameBoardView.setOnTouchListener(new GameBoardView.OnTouchListener() {
+      @Override
+      public void cellTouchedAtPosition(int x, int y) {
+        gameOfLife.activateCell(x, y);
+        if (isStarted) return;
+        gameBoardView.update(gameOfLife.getGrid());
+      }
+    });
   }
 
   void seed(float probabilityOfLife) {

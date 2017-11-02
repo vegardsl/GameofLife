@@ -64,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
   private BoardSize determineBoardSize(GameBoardView gameBoardView) {
     Log.d(GameActivity.class.getSimpleName(), "H: " + gameBoardView.getHeight());
     Log.d(GameActivity.class.getSimpleName(), "W: " + gameBoardView.getWidth());
-    return new BoardSize(180).determine(gameBoardView.getHeight(), gameBoardView.getWidth());
+    return new BoardSize(90).determine(gameBoardView.getHeight(), gameBoardView.getWidth());
   }
 
   public void onClickToggleGame(View view) {
