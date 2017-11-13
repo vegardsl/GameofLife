@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -56,7 +57,6 @@ public class GameActivity extends AppCompatActivity {
         gameController = new GameController(activity, gameBoardView, new GameOfLifeImpl(boardSize.width, boardSize.height));
         gameController.setSpeedPercent(INITIAL_SPEED_PERCENT);
         gameController.seed(0.4f);
-        gameController.startGame();
       }
     });
   }
@@ -70,10 +70,10 @@ public class GameActivity extends AppCompatActivity {
   public void onClickToggleGame(View view) {
     if (gameController.isRunning()) {
       gameController.pauseGame();
-      if (view instanceof TextView) ((TextView) view).setText("PLAY");
+      if (view instanceof ImageButton) ((ImageButton) view).setImageResource(R.drawable.ic_play);
     } else {
       gameController.resumeGame();
-      if (view instanceof TextView) ((TextView) view).setText("PAUSE");
+      if (view instanceof ImageButton) ((ImageButton) view).setImageResource(R.drawable.ic_pause);
     }
   }
 

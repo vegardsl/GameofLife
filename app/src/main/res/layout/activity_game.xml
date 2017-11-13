@@ -38,13 +38,14 @@
             android:progress="50"
             android:layout_weight="1"/>
 
-        <Button
+        <ImageButton
             style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="24dp"
             android:onClick="onClickToggleGame"
-            android:text="PAUSE"/>
+            android:src="@drawable/play_button"
+            android:contentDescription="PAUSE"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
